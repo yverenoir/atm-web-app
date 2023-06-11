@@ -1,7 +1,7 @@
 import {BankNote, deduct, getCashInVault, getTotal, testInitHelper} from "./vault";
 import lodash from 'lodash';
 import {
-    findClosestMatch,
+    findClosestMatchByIndex,
     flattenNotes,
     getCombinations,
     getCombinationsWithMaxNoOfDenominations,
@@ -36,32 +36,28 @@ test('should calculate total', () => {
     expect(total).toBe(310);
 });
 
-describe('should return the closest match of all denominations to cash in vault', () => {
+describe('should return the index of the closest match of all denominations to cash in vault', () => {
     it.each([
-        [[{"five": 0.45, "ten": 0.01, "twenty": 0.54},
+        [[{"5": 0.45, "10": 0.01, "20": 0.54},
             // {"five": 0.2, "ten": 0.4, "twenty": 0.5},
             // {"five": 0.43, "ten": 0.46, "twenty": 0.02},
-            {"five": 0.44, "ten": 0.3, "twenty": 0.26}
+            {"5": 0.44, "10": 0.3, "20": 0.26} // distribution of combinations
         ],
-            {"five": 0.45, "ten": 0.48, "twenty": 0.07},
-            {"five": 0.44, "ten": 0.3, "twenty": 0.26}], // three combinations
+            {"5": 0.45, "10": 0.48, "20": 0.07}, // distribution of cash in vault
+            1], // expected result
     ])('combinations %p should return %p as combinations with max number of denominations', (
         combinations: { [key: string]: number }[],
-        target: { [key: string]: number },
-        result: { [key: string]: number }) => {
-
-        expect(lodash.isEqual(findClosestMatch(combinations, target), result)).toBeTruthy();
+        cashInVault: { [key: string]: number },
+        result: number) => {
+        expect(findClosestMatchByIndex(combinations, cashInVault)).toBe(result);
     });
 });
 
 describe('should return all combinations with max number of denominations', () => {
     it.each([
         [[{"5": 3}, {"10": 1, "5": 1}], [{"10": 1, "5": 1}]], // only one combination
-        [[{"10": 6}, {"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}], [{"5": 2, "10": 3, "20": 1}, {
-            "5": 2,
-            "10": 1,
-            "20": 2
-        }]], // multiple combinations have the max number
+        [[{"10": 6}, {"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}],
+            [{"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}]], // multiple combinations have the max number
         [[], []], // zero combination
     ])('combinations %p should return %p as combinations with max number of denominations', (combinations: object[], result: object[]) => {
 
@@ -79,27 +75,13 @@ describe('should get combination with max number of denominations', () => {
     });
 });
 
-test('should pick most evenly distributed combination', () => {
-    const combinations: number[][] = [];
-    combinations.push([10], [5, 5]);
-    // Test cases:
-    // only one max combination
-    // multiple max combination
-    // all max combination
-    // zero combination
-    const result = pickEvenlyDistributedCombination(combinations);
-});
-
-test('should return optimal combination of notes to dispense', () => {
-    // foo();
-
-    let notes = [5, 5, 5, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 20, 20];
-    let requestedAmount = 140;
-    const combinations: number[][] = getCombinations(notes, requestedAmount);
-    if (combinations.length == 0) {
-        throw new Error("Not possible to dispense requested amount with cash in vault");
-    }
-    const result = pickEvenlyDistributedCombination(combinations);
+describe('should return all possible unique combinations of notes to dispense', () => {
+    it.each([
+        [[5, 5, 5, 5], 10, [[5, 5]]], // one denomination
+        [[5, 5, 10, 10, 10, 10, 20, 20], 20, [[5, 5, 10], [10, 10], [20]]] // more than one denominations
+    ])('cash map %p should be flattened into %p', (notes: number[], requestedAmount: number, result: number[][]) => {
+        expect(getCombinations(notes, requestedAmount)).toEqual(result);
+    });
 });
 
 describe('should flatten cash map', () => {
