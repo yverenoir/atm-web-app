@@ -2,7 +2,7 @@
 // In a production environment, the vault should be a secure single source of truth
 // where data read and write should only happen when the caller has the right to perform these actions
 
-import {calculateTotal} from "./vaultUtils";
+import {calculateTotal, getNotes} from "./vaultUtils";
 
 export enum BankNote {
     TWENTY = 20,
@@ -43,12 +43,21 @@ export function testInitHelper() {
     cash.set(BankNote.FIVE, 4);
 }
 
+// returns true if withdraw successful and deducts from vault, returns false if withdraw unsuccessful
 export function withdraw(amount: number): boolean {
+    console.log('withdraw from vault: ', amount, getCashInVault());
     // find best possible combination of notes to satisfy amount
+    const notes = getNotes(getCashInVault(), amount);
 
+    console.log("getNotes returns: ", notes);
+
+    if (notes == null) return false;
+
+    // this would be the place to let the physical ATM machine know which notes to dispense
+    console.log('notes for withdrawal: ', notes);
 
     // deduct amount from vault
+    notes.forEach((count, bankNote) => deduct(bankNote, count));
 
-    // return true if withdraw successful, return false if withdraw unsuccessful
     return true;
 }

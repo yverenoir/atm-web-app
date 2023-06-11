@@ -26,6 +26,7 @@ function Withdrawal() {
     const [showAmountInsufficientMsg, setShowAmountInsufficientMsg] = useState(false);
     const [showOverdraftMsg, setShowOverdraftMsg] = useState(false);
     const [showAmountNotPossibleMsg, setShowAmountNotPossibleMsg] = useState(false);
+    const [withdrawUnsuccessfulMsg, setWithdrawUnsuccessfulMsg] = useState(false);
     const [withdrawButtonDisabled, setWithdrawButtonDisabled] = useState(true);
 
     const allowedOverdraftAmount = 100;
@@ -74,13 +75,18 @@ function Withdrawal() {
         if (amount == null) {
             throw new Error("Amount invalid");
         }
-        
+
         const totalInVault = getTotal();
         const withdrawalIsAllowed = totalInVault >= amount;
         // display message if user is overdrawing
         if (withdrawalIsAllowed) {
             // substract withdrawn amount from balance
-            withdraw(amount);
+            const withdrawSuccess = withdraw(amount);
+            if (!withdrawSuccess) {
+                setWithdrawUnsuccessfulMsg(true);
+                return;
+            }
+
             setBalance(balance - amount);
         } else {
             // show vault cash insufficient msg, or show this message even in handleAmountChange()?
@@ -94,8 +100,9 @@ function Withdrawal() {
     // c) even withdraw from different denominations to leave the casettes in the most balanced distribution
     // ...
     // z) a combination of all/few of the above with different weights
-    function withdraw(amount: number) {
-        withdrawFromVault(amount);
+    function withdraw(amount: number): boolean {
+        console.log('withdrawing');
+        return withdrawFromVault(amount);
     }
 
     function onEndTransaction() {
@@ -113,6 +120,7 @@ function Withdrawal() {
                     withdrawal</div>}
             {showAmountNotPossibleMsg &&
                 <div>You can only draw a multiple of 5</div>}
+            {withdrawUnsuccessfulMsg && <div>Requested amount cannot be withdrawn.</div>}
             <form onSubmit={onWithdrawSubmit}>
                 <TextField label="Amount" variant="outlined" type={"number"} value={amount}
                            onChange={handleAmountChange}/>

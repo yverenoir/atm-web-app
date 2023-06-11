@@ -46,8 +46,8 @@ describe('should return the index of the closest match of all denominations to c
             {"5": 0.45, "10": 0.48, "20": 0.07}, // distribution of cash in vault
             1], // expected result
     ])('combinations %p should return %p as combinations with max number of denominations', (
-        combinations: { [key: string]: number }[],
-        cashInVault: { [key: string]: number },
+        combinations: Record<string, number>[],
+        cashInVault: Record<string, number>,
         result: number) => {
         expect(findClosestMatchByIndex(combinations, cashInVault)).toBe(result);
     });
@@ -55,11 +55,11 @@ describe('should return the index of the closest match of all denominations to c
 
 describe('should return all combinations with max number of denominations', () => {
     it.each([
-        [[{"5": 3}, {"10": 1, "5": 1}], [{"10": 1, "5": 1}]], // only one combination
-        [[{"10": 6}, {"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}],
-            [{"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}]], // multiple combinations have the max number
+        [[{"5": 3}, {"5": 1, "10": 1}] as Record<string, number>[], [{"5": 1, "10": 1}] as Record<string, number>[]], // only one combination
+        [[{"10": 6}, {"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}] as Record<string, number>[],
+            [{"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}] as Record<string, number>[]], // multiple combinations have the max number
         [[], []], // zero combination
-    ])('combinations %p should return %p as combinations with max number of denominations', (combinations: object[], result: object[]) => {
+    ])('combinations %p should return %p as combinations with max number of denominations', (combinations: Record<string, number>[], result: Record<string, number>[]) => {
 
         expect(lodash.isEqual(getCombinationsWithMaxNoOfDenominations(combinations), result)).toBeTruthy();
     });
@@ -67,10 +67,10 @@ describe('should return all combinations with max number of denominations', () =
 
 describe('should get combination with max number of denominations', () => {
     it.each([
-        [[{"5": 3}, {"10": 1, "5": 1}], 2], // only one max combination
-        [[{"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}], 3], // multiple combinations have the max number
+        [[{"5": 3}, {"10": 1, "5": 1}] as Record<string, number>[], 2], // only one max combination
+        [[{"5": 2, "10": 3, "20": 1}, {"5": 2, "10": 1, "20": 2}] as Record<string, number>[], 3], // multiple combinations have the max number
         [[], 0], // zero combination
-    ])('combinations %p should return %p as max number of denominations', (combinations: object[], result: number) => {
+    ])('combinations %p should return %p as max number of denominations', (combinations: Record<string, number>[], result: number) => {
         expect(getMaxNumberOfDenominations(combinations)).toEqual(result);
     });
 });
@@ -81,6 +81,11 @@ describe('should return all possible unique combinations of notes to dispense', 
         [[5, 5, 10, 10, 10, 10, 20, 20], 20, [[5, 5, 10], [10, 10], [20]]] // more than one denominations
     ])('cash map %p should be flattened into %p', (notes: number[], requestedAmount: number, result: number[][]) => {
         expect(getCombinations(notes, requestedAmount)).toEqual(result);
+    });
+
+    it("should return for init config in vault", () => {
+        const cashInVault = [20, 20, 20, 20, 20, 20, 20, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 5, 5, 5, 5];
+        expect(getCombinations(cashInVault, 140).length > 0).toBeTruthy();
     });
 });
 
@@ -98,7 +103,7 @@ describe('should count occurrences of notes', () => {
     it.each([
         [[5, 5, 5], {"5": 3}], // one denomination, multiple occurrences
         [[5, 5, 5, 10], {"5": 3, "10": 1}], // more than one denomination, single and multiple occurrences
-    ])('%p should be grouped into %p', (combination: number[], result: { [key: string]: number }) => {
+    ])('%p should be grouped into %p', (combination: number[], result: Record<string, number>) => {
         expect(occurrences(combination)).toEqual(result);
     });
 });
@@ -125,13 +130,15 @@ describe('should transform into map of bank notes', () => {
     });
 });
 
-describe('should calcualte distribution of notes', () => {
+describe('should calculate distribution of notes', () => {
     it.each([
-        [[{"10": 2, "20": 1}], [{"10": 0.5, "20": 0.5}]], // one element in list
-        [[{"10": 2, "20": 1}, {"10": 2}], [{"10": 0.5, "20": 0.5}, {"10": 1}]], // more than one element in list
-    ])('%p should return distribution %p', (combination: {
-        [key: string]: number
-    }[], result: Record<string, number>[]) => {
+        [[{"10": 2, "20": 1}] as Record<string, number>[],
+            [{"10": 0.5, "20": 0.5}] as Record<string, number>[]], // one element in list
+        [[{"10": 2, "20": 1}, {"10": 2}] as Record<string, number>[], [{
+            "10": 0.5,
+            "20": 0.5
+        }, {"10": 1}] as Record<string, number>[]], // more than one element in list
+    ])('%p should return distribution %p', (combination: Record<string, number>[], result: Record<string, number>[]) => {
         expect(getDistributionOfNotes(combination)).toEqual(result);
     });
 });
