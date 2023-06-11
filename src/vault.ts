@@ -2,6 +2,8 @@
 // In a production environment, the vault should be a secure single source of truth
 // where data read and write should only happen when the caller has the right to perform these actions
 
+import {calculateTotal} from "./vaultUtils";
+
 export enum BankNote {
     TWENTY = 20,
     TEN = 10,
@@ -21,9 +23,7 @@ const cash: Map<BankNote, number> = init();
 export const getCashInVault = () => cash;
 
 export const getTotal = () => {
-    let total = 0;
-    cash.forEach((count, bankNote) => total += bankNote * count);
-    return total;
+    return calculateTotal(cash);
 }
 
 export const deduct = (note: BankNote, noteCount: number) => {
@@ -41,4 +41,14 @@ export function testInitHelper() {
     cash.set(BankNote.TWENTY, 7);
     cash.set(BankNote.TEN, 15);
     cash.set(BankNote.FIVE, 4);
+}
+
+export function withdraw(amount: number): boolean {
+    // find best possible combination of notes to satisfy amount
+
+
+    // deduct amount from vault
+
+    // return true if withdraw successful, return false if withdraw unsuccessful
+    return true;
 }

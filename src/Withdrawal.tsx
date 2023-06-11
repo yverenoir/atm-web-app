@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import {useLocation} from "react-router-dom";
 import {Button, TextField} from "@mui/material";
-import {getCashInVault, getTotal} from "./vault";
+import {getTotal, withdraw as withdrawFromVault} from "./vault";
 
 // He’s going to make 3 withdrawals:
 // ●	£140
@@ -74,7 +74,7 @@ function Withdrawal() {
         if (amount == null) {
             throw new Error("Amount invalid");
         }
-
+        
         const totalInVault = getTotal();
         const withdrawalIsAllowed = totalInVault >= amount;
         // display message if user is overdrawing
@@ -95,14 +95,7 @@ function Withdrawal() {
     // ...
     // z) a combination of all/few of the above with different weights
     function withdraw(amount: number) {
-        const availableCash = getCashInVault();
-        // begin with highest available denomination
-        // check if remaining denomination is enough to cover x% of the requested amount, if yes, then go to next lower one, if no, take the higher one (or go one level deeper?)
-        // also take distribution of notes in vault into consideration and do a rough split between the bills??
-
-
-        // get all permutations
-        //
+        withdrawFromVault(amount);
     }
 
     function onEndTransaction() {
