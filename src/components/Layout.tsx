@@ -19,7 +19,6 @@ function Layout(props: any) {
                         backgroundColor: '#F0EEF4',
                         borderRadius: '32px',
                         width: '550px',
-                        maxWidth: 'calc(100% - 120px)',
                         minHeight: '375px',
                     }}>
                         <Box p={{xs: 1, sm: 2, md: 3}}>{props.children}</Box>
