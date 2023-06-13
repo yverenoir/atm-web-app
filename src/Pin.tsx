@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 function Pin() {
 
     const [pin, setPin] = useState<number | null>(null);
+    const [showPinErrorMsg, setShowPinErrorMsg] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ function Pin() {
         console.log('response received');
         if (!response.ok) {
             console.log('something went wrong when validating pin');
+            setShowPinErrorMsg(true);
             return;
         }
         const data = await response.json();
@@ -43,12 +45,16 @@ function Pin() {
                 <Typography variant={"h6"}>Please enter your PIN</Typography>
             </Grid>
             <form onSubmit={onPinSubmit}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <TextField id="outlined-basic" label="Pin" variant="outlined" type={"number"} value={pin}
-                                   onChange={handlePinChange}/>
+                <Grid container direction={"column"} alignItems={"center"} spacing={2}>
+                    <Grid item>
+                        {showPinErrorMsg && <Typography>The PIN entered is wrong, please try again</Typography>}
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item>
+                        <TextField id="outlined-basic" label="Pin" variant="outlined" type={"password"} value={pin}
+                                   onChange={handlePinChange}
+                        />
+                    </Grid>
+                    <Grid item>
                         <Button type={"submit"} variant={"contained"}>Enter</Button>
                     </Grid>
                 </Grid>
