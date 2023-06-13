@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+These additional frameworks and libraries are used:
+
+- Material UI for styling
+- React Router for routing
+
 ## How to run app
 
 ### `npm install`
@@ -12,6 +17,8 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Dispensing mechanism
+
+This section describes the approach and algorithm used to dispense the requested amount.
 
 In real life, ATMs have different ways of prioritising what denominations should be dispensed.
 
@@ -25,7 +32,7 @@ Some prioritisation strategies are:
 - c) Dispense evenly according to machine's cash balance, e.g. when there's more 10$ notes than 20$ notes in the ATM,
   dispense more of 10$.
   This approach ensures the ATM always has the most balanced denominations for all customers.
-- d) Dispense the minimal number of notes.
+- d) Dispense the minimal number of notes. (Coin change problem)
 - e) ...
 
 The ask for this web app was to dispense a "roughly even mix of notes". To satisfy this requirement, strategy b) would
@@ -50,7 +57,9 @@ dispensed in a single transaction.
 
 ### Current balance via API
 
-TBD
+The balance returned via the API is static. I assume after each withdraw, the web app has to persist the new balance.
+The web app uses a workaround (via the states of the router) to pass around the balance
+after each withdraw.
 
 ## Tests
 
