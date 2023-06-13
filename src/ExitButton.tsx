@@ -8,8 +8,7 @@ function ExitButton() {
 
     function onEndTransaction() {
         // invalidate auth token
-        // redirect user back to pin page
-        navigate("/");
+        navigate("/collect-card");
     }
 
     return (

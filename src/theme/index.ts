@@ -24,6 +24,8 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: '12px',
+                    backgroundColor: "white",
+                    borderColor: "#8A8A8A",
                 }
             }
         }

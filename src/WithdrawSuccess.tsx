@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {useLocation, useNavigate} from "react-router-dom";
 import success from './withdrawal-success.gif';
-import {Button, Grid} from "@mui/material";
+import {Button, Grid, Typography} from "@mui/material";
 import ExitButton from "./ExitButton"; // Tell webpack this JS file uses this image
 
 function WithdrawSuccess() {
@@ -15,12 +15,17 @@ function WithdrawSuccess() {
     }
 
     return (
-        <Grid container justifyContent={"center"} alignItems={"center"}>
+        <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"}>
             <Grid item>
-                <img src={success} alt="withdrawalSuccess"/>
+                <Typography>Your cash is ready, please collect.</Typography>
             </Grid>
             <Grid item>
-                <Button onClick={onWithdrawAgainButtonClicked}>Withdraw again</Button>
+                <div className={"icon-container"}>
+                    <img src={success} className={"rectangular-icon"} alt="withdrawalSuccess"/>
+                </div>
+            </Grid>
+            <Grid item>
+                <Button variant={"contained"} onClick={onWithdrawAgainButtonClicked}>Withdraw again</Button>
             </Grid>
             <Grid item>
                 <ExitButton/>

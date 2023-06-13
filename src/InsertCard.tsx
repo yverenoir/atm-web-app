@@ -8,14 +8,16 @@ function InsertCard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-            setTimeout(() => navigate("/pin"), 1000);
+            setTimeout(() => navigate("/pin"), 2000);
         }
     );
 
     return (
         <Grid container justifyContent={"center"} alignItems={"center"}>
             <Grid item>
-                <img src={insert} alt="insertCard"/>
+                <div className={"icon-container"}>
+                    <img className={"insert-card-icon"} src={insert} alt="insertCard"/>
+                </div>
             </Grid>
         </Grid>
     );

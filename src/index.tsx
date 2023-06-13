@@ -1,33 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Withdrawal from "./Withdrawal";
-import InsertCard from "./InsertCard";
-import WithdrawSuccess from "./WithdrawSuccess";
+import {RouterProvider} from "react-router-dom";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./theme";
-
-const router = createBrowserRouter([
-    {
-        path: "pin",
-        element: <App/>,
-    },
-    {
-        path: "/",
-        element: <InsertCard/>
-    },
-    {
-        path: "withdraw",
-        element: <Withdrawal/>
-    },
-    {
-        path: "withdrawal-success",
-        element: <WithdrawSuccess/>
-    }
-]);
+import {router} from "./router";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
