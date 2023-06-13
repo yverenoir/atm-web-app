@@ -15,7 +15,12 @@ function Layout(props: any) {
             <Box p={5}></Box>
             <Grid container direction={"column"} alignItems={"center"}>
                 <Grid item>
-                    <Box sx={{backgroundColor: '#F0EEF4', borderRadius: '32px', width: '787px'}}>
+                    <Box sx={{
+                        backgroundColor: '#F0EEF4',
+                        borderRadius: '32px',
+                        width: '550px',
+                        minHeight: "375px",
+                    }}>
                         <Box p={5}>{props.children}</Box>
                     </Box>
                 </Grid>
