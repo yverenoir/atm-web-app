@@ -61,6 +61,13 @@ The balance returned via the API is static. I assume after each withdraw, the we
 The web app uses a workaround (via the states of the router) to pass around the balance
 after each withdraw.
 
+### ATM behavior
+
+I assume this web app is to mimic an ATM's behavior. The web app does not have the sensor input as a real ATM. This web
+app assumes the user inserts their card at the beginning of the flow and collects the card from the ATM at the end of
+the flow. This behavior is visually accompanied by two screens with timer set on them to trigger the next step of the
+flow.
+
 ## Tests
 
 To run all tests, run:
@@ -69,6 +76,9 @@ To run all tests, run:
 
 The tests focus on unit and integration testing the core business logic, dispensing the requested amount in with evenly
 distributed denominations.
+
+Some of the tests are parametrised tested, meaning more than one input and result tuple are used as input values for one
+test case.
 
 ## Browser compatibility
 
