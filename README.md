@@ -108,3 +108,9 @@ needed.
 The app is optimised for desktop usage. As it is a simulation of a physical ATM machine, mobile
 responsiveness was not prioritised. For a real customer facing banking web app, mobile responsiveness should be the
 first priority.
+
+### Loading states
+
+The app does not disable user interactions when in loading state (authenticating via pin, requesting withdraw). This can
+lead to idempotency issues or duplicated actions being executed. This is also bad UX because the user has no indication
+if the request has been registered with the web app successfully.
