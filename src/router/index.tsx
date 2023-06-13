@@ -1,9 +1,9 @@
 import {createBrowserRouter} from "react-router-dom";
-import InsertCard from "../InsertCard";
-import Withdrawal from "../Withdrawal";
-import WithdrawSuccess from "../WithdrawSuccess";
-import CollectCard from "../CollectCard";
-import Pin from "../Pin";
+import InsertCard from "../pages/InsertCard";
+import Withdrawal from "../pages/Withdrawal";
+import WithdrawSuccess from "../pages/WithdrawSuccess";
+import CollectCard from "../pages/CollectCard";
+import Pin from "../pages/Pin";
 
 export const router = createBrowserRouter([
     {

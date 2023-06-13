@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import {useLocation, useNavigate} from "react-router-dom";
-import success from './assets/withdrawal-success.gif';
+import success from '../assets/withdrawal-success.gif';
 import {Button, Grid, Typography} from "@mui/material";
-import ExitButton from "./ExitButton"; // Tell webpack this JS file uses this image
+import ExitButton from "../components/ExitButton"; // Tell webpack this JS file uses this image
 
 function WithdrawSuccess() {
     const navigate = useNavigate();

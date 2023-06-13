@@ -6,7 +6,7 @@ import {RouterProvider} from "react-router-dom";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./theme";
 import {router} from "./router";
-import Layout from "./Layout";
+import Layout from "./components/Layout";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

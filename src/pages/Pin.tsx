@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import './App.css';
+import '../App.css';
 import {Button, Grid, TextField, Typography} from '@mui/material';
 import {useNavigate} from "react-router-dom";
-import ErrorMsg from "./ErrorMsg";
-import {messages} from "./messages";
+import ErrorMsg from "../components/ErrorMsg";
+import {messages} from "../const/messages";
 
 function Pin() {
 

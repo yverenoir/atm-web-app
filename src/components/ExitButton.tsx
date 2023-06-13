@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material"; // Tell webpack this JS file uses this image
 

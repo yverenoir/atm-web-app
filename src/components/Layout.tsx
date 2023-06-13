@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import {AppBar, Box, Grid, Toolbar} from "@mui/material";
-import logo from "./assets/logo.png";
+import logo from "../assets/logo.png";
 
 function Layout(props: any) {
 
@@ -12,16 +12,17 @@ function Layout(props: any) {
                     <img className={"logo"} src={logo}/>
                 </Toolbar>
             </AppBar>
-            <Box p={5}></Box>
+            <Box py={5}></Box>
             <Grid container direction={"column"} alignItems={"center"}>
                 <Grid item>
                     <Box sx={{
                         backgroundColor: '#F0EEF4',
                         borderRadius: '32px',
                         width: '550px',
-                        minHeight: "375px",
+                        maxWidth: 'calc(100% - 120px)',
+                        minHeight: '375px',
                     }}>
-                        <Box p={5}>{props.children}</Box>
+                        <Box p={{xs: 1, sm: 2, md: 3}}>{props.children}</Box>
                     </Box>
                 </Grid>
             </Grid>

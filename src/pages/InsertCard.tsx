@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import './App.css';
+import '../App.css';
 import {useNavigate} from "react-router-dom";
-import insert from './assets/insert-card.gif';
+import insert from '../assets/insert-card.gif';
 import {Grid, Typography} from "@mui/material"; // Tell webpack this JS file uses this image
 
 function InsertCard() {
