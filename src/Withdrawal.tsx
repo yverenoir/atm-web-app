@@ -1,22 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {useLocation} from "react-router-dom";
-import {Button, TextField} from "@mui/material";
+import {useLocation, useNavigate} from "react-router-dom";
+import {Button, Grid, TextField} from "@mui/material";
 import {getTotal, withdraw as withdrawFromVault} from "./vault";
-
-// He’s going to make 3 withdrawals:
-// ●	£140
-// ●	£50
-// ●	£90
-
-// 4 x £5 notes
-// 15 x £10 notes
-// 7 x £20 notes
-// You should try to give a roughly even mix of notes when possible, and will have to take into account what to do when certain ones run out.
-// Your ATM allows an overdraft of up to £100 and should let users know if they do go overdrawn 😬
+import ExitButton from "./ExitButton";
 
 function Withdrawal() {
     const location = useLocation();
+    const navigate = useNavigate();
     const [amount, setAmount] = useState<number | null>(null);
 
     const balanceFromState = location.state?.balance;
@@ -88,6 +79,7 @@ function Withdrawal() {
             }
 
             setBalance(balance - amount);
+            navigate("/withdrawal-success", {state: {balance: balance - amount}});
         } else {
             // show vault cash insufficient msg, or show this message even in handleAmountChange()?
         }
@@ -105,29 +97,39 @@ function Withdrawal() {
         return withdrawFromVault(amount);
     }
 
-    function onEndTransaction() {
-        // invalidate auth token
-        // redirect user back to pin page
-    }
-
     // check for auth status, only show this page when user is logged in
     return (
-        <div>
-            Balance: £{balance}
-            {showAmountInsufficientMsg && <div>Requested amount is bigger than allowed withdrawal amount</div>}
-            {showOverdraftMsg &&
-                <div>Requested amount is bigger than actual balance, you will be going into minus after this
-                    withdrawal</div>}
-            {showAmountNotPossibleMsg &&
-                <div>You can only draw a multiple of 5</div>}
-            {withdrawUnsuccessfulMsg && <div>Requested amount cannot be withdrawn.</div>}
-            <form onSubmit={onWithdrawSubmit}>
-                <TextField label="Amount" variant="outlined" type={"number"} value={amount}
-                           onChange={handleAmountChange}/>
-                <Button type={"submit"} variant={"outlined"} disabled={withdrawButtonDisabled}>Withdraw</Button>
-            </form>
-            <Button variant={"outlined"} onClick={onEndTransaction}>End transaction</Button>
-        </div>
+        <Grid container direction={"column"} alignItems={"center"} spacing={2}>
+            <Grid item>
+                Balance: £{balance}
+            </Grid>
+            <Grid item>
+                {showAmountInsufficientMsg && <div>Requested amount is bigger than allowed withdrawal amount</div>}
+                {showOverdraftMsg &&
+                    <div>Requested amount is bigger than actual balance, you will be going into minus after this
+                        withdrawal</div>}
+                {showAmountNotPossibleMsg &&
+                    <div>You can only draw a multiple of 5</div>}
+                {withdrawUnsuccessfulMsg && <div>Requested amount cannot be withdrawn.</div>}
+            </Grid>
+            <Grid item>
+                <form onSubmit={onWithdrawSubmit}>
+                    <Grid container direction={"column"} alignItems={"center"} spacing={2}>
+                        <Grid item>
+                            <TextField label="Amount" variant="outlined" type={"number"} value={amount}
+                                       onChange={handleAmountChange}/>
+                        </Grid>
+                        <Grid item>
+                            <Button type={"submit"} variant={"contained"}
+                                    disabled={withdrawButtonDisabled}>Withdraw</Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Grid>
+            <Grid item>
+                <ExitButton/>
+            </Grid>
+        </Grid>
     );
 }
 

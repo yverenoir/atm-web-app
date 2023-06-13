@@ -5,15 +5,27 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Withdrawal from "./Withdrawal";
+import InsertCard from "./InsertCard";
+import WithdrawSuccess from "./WithdrawSuccess";
+import {ThemeProvider} from "@mui/material";
+import {theme} from "./theme";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "pin",
         element: <App/>,
+    },
+    {
+        path: "/",
+        element: <InsertCard/>
     },
     {
         path: "withdraw",
         element: <Withdrawal/>
+    },
+    {
+        path: "withdrawal-success",
+        element: <WithdrawSuccess/>
     }
 ]);
 
@@ -22,7 +34,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router}/>
+        <ThemeProvider theme={theme}>
+            <RouterProvider router={router}/>
+        </ThemeProvider>
     </React.StrictMode>
 );
 

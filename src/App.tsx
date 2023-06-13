@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Button, Grid, TextField} from '@mui/material';
+import {Button, Grid, TextField, Typography} from '@mui/material';
 import {useNavigate} from "react-router-dom";
 
 function App() {
 
     const [pin, setPin] = useState<number | null>(null);
-    const [balance, setBalance] = useState<number | null>(null);
 
     const navigate = useNavigate();
 
@@ -28,7 +27,6 @@ function App() {
         const data = await response.json();
         const currentBalance = data.currentBalance;
         console.log('retrieved balance is: ', currentBalance);
-        setBalance(currentBalance);
         // show withdraw page
         navigate("/withdraw", {state: {balance: currentBalance}});
     }
@@ -40,17 +38,23 @@ function App() {
 
     return (
         <div className="App">
-            <form onSubmit={onPinSubmit}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <TextField id="outlined-basic" label="Pin" variant="outlined" type={"number"} value={pin}
-                                   onChange={handlePinChange}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button type={"submit"} variant={"outlined"}>Enter pin</Button>
-                    </Grid>
+            <Grid container direction={"column"}>
+                <Grid item>
+                    <Typography variant={"h4"}>Hey Pompom, welcome back! </Typography>
+                    <Typography variant={"h6"}>Please enter your PIN</Typography>
                 </Grid>
-            </form>
+                <form onSubmit={onPinSubmit}>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <TextField id="outlined-basic" label="Pin" variant="outlined" type={"number"} value={pin}
+                                       onChange={handlePinChange}/>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button type={"submit"} variant={"contained"}>Enter</Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Grid>
         </div>
     );
 }
