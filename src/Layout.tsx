@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {AppBar, Box, Grid, Toolbar} from "@mui/material";
-import logo from "./logo.png";
+import logo from "./assets/logo.png";
 
 function Layout(props: any) {
 

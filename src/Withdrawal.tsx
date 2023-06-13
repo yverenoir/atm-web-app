@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import {useLocation, useNavigate} from "react-router-dom";
 import {Button, Grid, InputAdornment, TextField, Typography} from "@mui/material";
-import {getTotal, withdraw as withdrawFromVault} from "./vault";
+import {getTotal, withdraw as withdrawFromVault} from "./vault/vault";
 import ExitButton from "./ExitButton";
 import ErrorMsg from "./ErrorMsg";
 import {messages} from "./messages";

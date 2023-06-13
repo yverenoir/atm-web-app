@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {useNavigate} from "react-router-dom";
-import collectCard from './collect-card.gif';
+import collectCard from './assets/collect-card.gif';
 import {Grid, Typography} from "@mui/material";
 
 function WithdrawSuccess() {
