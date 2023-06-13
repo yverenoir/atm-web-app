@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import {useLocation, useNavigate} from "react-router-dom";
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, Grid, InputAdornment, TextField} from "@mui/material";
 import {getTotal, withdraw as withdrawFromVault} from "./vault";
 import ExitButton from "./ExitButton";
 
@@ -117,7 +117,10 @@ function Withdrawal() {
                     <Grid container direction={"column"} alignItems={"center"} spacing={2}>
                         <Grid item>
                             <TextField label="Amount" variant="outlined" type={"number"} value={amount}
-                                       onChange={handleAmountChange}/>
+                                       onChange={handleAmountChange}
+                                       InputProps={{
+                                           endAdornment: <InputAdornment position="end">£</InputAdornment>,
+                                       }}/>
                         </Grid>
                         <Grid item>
                             <Button type={"submit"} variant={"contained"}
