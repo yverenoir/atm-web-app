@@ -6,6 +6,7 @@ import {RouterProvider} from "react-router-dom";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./theme";
 import {router} from "./router";
+import Layout from "./Layout";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
-            <RouterProvider router={router}/>
+            <Layout>
+                <RouterProvider router={router}/>
+            </Layout>
         </ThemeProvider>
     </React.StrictMode>
 );
