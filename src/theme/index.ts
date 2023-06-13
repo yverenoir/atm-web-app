@@ -16,6 +16,9 @@ export const theme = createTheme({
                     boxShadow: "none",
                     textTransform: "none",
                     color: "white",
+                },
+                outlined: {
+                    color: '#64529A',
                 }
             }
         },
@@ -33,6 +36,6 @@ export const theme = createTheme({
                     backgroundColor: '#27213C',
                 }
             }
-        }
+        },
     }
 });

@@ -12,7 +12,7 @@ function ExitButton() {
     }
 
     return (
-        <Button variant={"contained"} onClick={onEndTransaction}>End transaction</Button>
+        <Button variant={"outlined"} onClick={onEndTransaction}>End transaction</Button>
     );
 }
 

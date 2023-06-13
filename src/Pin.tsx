@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import './App.css';
 import {Button, Grid, TextField, Typography} from '@mui/material';
 import {useNavigate} from "react-router-dom";
+import ErrorMsg from "./ErrorMsg";
+import {messages} from "./messages";
 
 function Pin() {
 
@@ -9,6 +11,7 @@ function Pin() {
     const [showPinErrorMsg, setShowPinErrorMsg] = useState(false);
 
     const navigate = useNavigate();
+    const nameOfCustomer = "Pompom";
 
     async function onPinSubmit(e: any) {
         e.preventDefault();
@@ -41,13 +44,13 @@ function Pin() {
     return (
         <Grid container direction={"column"} alignItems={"center"} spacing={2}>
             <Grid item>
-                <Typography variant={"h4"}>Hey Pompom, welcome back! </Typography>
-                <Typography variant={"h6"}>Please enter your PIN</Typography>
+                <Typography variant={"h5"} p={3}>Hey {nameOfCustomer}, welcome back! </Typography>
+                <Typography variant={"h5"}>Please enter your PIN</Typography>
             </Grid>
             <form onSubmit={onPinSubmit}>
                 <Grid container direction={"column"} alignItems={"center"} spacing={2}>
                     <Grid item>
-                        {showPinErrorMsg && <Typography>The PIN entered is wrong, please try again</Typography>}
+                        {showPinErrorMsg && <ErrorMsg msg={messages.wrongPin}/>}
                     </Grid>
                     <Grid item>
                         <TextField id="outlined-basic" label="Pin" variant="outlined" type={"password"} value={pin}

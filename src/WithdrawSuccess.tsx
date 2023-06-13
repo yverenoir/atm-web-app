@@ -17,7 +17,7 @@ function WithdrawSuccess() {
     return (
         <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"}>
             <Grid item>
-                <Typography>Your cash is ready, please collect.</Typography>
+                <Typography variant={"h5"}>Your cash is ready</Typography>
             </Grid>
             <Grid item>
                 <div className={"icon-container"}>

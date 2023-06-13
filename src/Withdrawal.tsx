@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import {useLocation, useNavigate} from "react-router-dom";
-import {Button, Grid, InputAdornment, TextField} from "@mui/material";
+import {Button, Grid, InputAdornment, TextField, Typography} from "@mui/material";
 import {getTotal, withdraw as withdrawFromVault} from "./vault";
 import ExitButton from "./ExitButton";
+import ErrorMsg from "./ErrorMsg";
+import {messages} from "./messages";
 
 function Withdrawal() {
     const location = useLocation();
@@ -101,16 +103,17 @@ function Withdrawal() {
     return (
         <Grid container direction={"column"} alignItems={"center"} spacing={2}>
             <Grid item>
-                Balance: £{balance}
+                <Typography variant={"h5"}>
+                    Balance: £{balance}
+                </Typography>
             </Grid>
             <Grid item>
-                {showAmountInsufficientMsg && <div>Requested amount is bigger than allowed withdrawal amount</div>}
-                {showOverdraftMsg &&
-                    <div>Requested amount is bigger than actual balance, you will be going into minus after this
-                        withdrawal</div>}
-                {showAmountNotPossibleMsg &&
-                    <div>You can only draw a multiple of 5</div>}
-                {withdrawUnsuccessfulMsg && <div>Requested amount cannot be withdrawn.</div>}
+                <Grid container direction={"column"} spacing={1}>
+                    <Grid item>{showAmountNotPossibleMsg && <ErrorMsg msg={messages.illegalAmount}/>}</Grid>
+                    <Grid item>{showOverdraftMsg && <ErrorMsg msg={messages.overdraft}/>}</Grid>
+                    <Grid item>{showAmountInsufficientMsg && <ErrorMsg msg={messages.amountInsufficient}/>}</Grid>
+                    <Grid item>{withdrawUnsuccessfulMsg && <ErrorMsg msg={messages.withdrawUnsuccessful}/>}</Grid>
+                </Grid>
             </Grid>
             <Grid item>
                 <form onSubmit={onWithdrawSubmit}>
@@ -119,7 +122,7 @@ function Withdrawal() {
                             <TextField label="Amount" variant="outlined" type={"number"} value={amount}
                                        onChange={handleAmountChange}
                                        InputProps={{
-                                           endAdornment: <InputAdornment position="end">£</InputAdornment>,
+                                           startAdornment: <InputAdornment position="start">£</InputAdornment>,
                                        }}/>
                         </Grid>
                         <Grid item>
