@@ -1,15 +1,14 @@
 import {BankNote} from "./vault";
 
 // Returns evenly balanced notes for requested amount
+// For a more detailed explanation of the steps taken, please refer to "Dispensing mechanism" in README.md
 export function getNotes(cashInVault: Map<BankNote, number>, requestedAmount: number): Map<BankNote, number> | null {
-    console.log('getNotes for amount: ', requestedAmount);
     // transforms data structure for next step
     const flattened = flattenNotes(cashInVault);
-    console.log('flattened notes: ', flattened);
 
     // get all possible combinations given the cash in vault
     const combinations = getCombinations(flattened, requestedAmount);
-    console.log('combinations: ', combinations);
+
     // no combination found
     if (combinations.length === 0) return null;
 
@@ -22,7 +21,6 @@ export function getNotes(cashInVault: Map<BankNote, number>, requestedAmount: nu
 
 // Returns all unique combinations out of given notes to sum up to the requested amount
 export function getCombinations(notes: number[], requestedAmount: number): number[][] {
-    console.log('getCombinations');
     notes.sort((a, b) => a - b);
 
     // The result list has all possible combinations: [ [5,5,10] , [5,5,5,5] ]
@@ -32,20 +30,15 @@ export function getCombinations(notes: number[], requestedAmount: number): numbe
 
     getCombination(0, 0, requestedAmount, tmpResult, notes, result);
 
-    console.log('combinations found: ', result);
-
     return result;
 }
 
 // Helper to recursively search for unique note combinations
 function getCombination(startIndex: number, sum: number, requestedAmount: number, tmpResult: number[], notes: number[], result: number[][]) {
-    console.log('getCombination running');
     // sum of found notes matches with requested amount
     // => combination is valid => add combination to result list
-    console.log('sum and requestedAmount ', sum, " ", requestedAmount);
     if (sum == requestedAmount) {
         result.push([...tmpResult]);
-        console.log('result: ', result);
         return;
     }
 
@@ -135,10 +128,8 @@ export function calculateTotal(cash: Map<BankNote, number>): number {
 // Chooses combination of notes with max variance AND
 // which comes closest to the distribution of notes in the ATM cassette
 export function pickEvenlyDistributedCombination(combinations: number[][], cashInVault: Map<BankNote, number>): Record<string, number> | null {
-    console.log('pickEvenlyDistributedCombination');
     // count number of notes and group by denomination
     const groupedCombinations: Record<string, number>[] = combinations.map(value => occurrences(value));
-    console.log('groupedCombinations: ', groupedCombinations);
 
     // get combinations with highest number of denominations used among possible combinations
     const combinationsWithMaxNoOfDenominations = getCombinationsWithMaxNoOfDenominations(groupedCombinations);

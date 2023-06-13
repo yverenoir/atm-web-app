@@ -45,16 +45,13 @@ export function testInitHelper() {
 
 // returns true if withdraw successful and deducts from vault, returns false if withdraw unsuccessful
 export function withdraw(amount: number): boolean {
-    console.log('withdraw from vault: ', amount, getCashInVault());
     // find best possible combination of notes to satisfy amount
     const notes = getNotes(getCashInVault(), amount);
-
-    console.log("getNotes returns: ", notes);
 
     if (notes == null) return false;
 
     // this would be the place to let the physical ATM machine know which notes to dispense
-    console.log('notes for withdrawal: ', notes);
+    console.log('Requested amount: ', amount, ' Notes to dispense: ', notes);
 
     // deduct amount from vault
     notes.forEach((count, bankNote) => deduct(bankNote, count));
