@@ -108,8 +108,9 @@ responsiveness easier.
 
 ### Responsiveness
 
-The app is optimised for desktop usage. As it is a simulation of a physical ATM machine, mobile
-responsiveness was not prioritised. For a real customer facing banking web app, mobile responsiveness should be the
+The app is optimised for desktop usage and limited mobile usage (e.g. font size not adapted, no separate small sized
+images for smaller screens). As it is a simulation of a physical ATM machine, mobile responsiveness was not prioritised.
+For a real customer facing banking web app, mobile responsiveness should be the
 first priority.
 
 ### E2E test
