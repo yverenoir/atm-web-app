@@ -18,9 +18,9 @@ function Layout(props: any) {
                     <Box sx={{
                         backgroundColor: '#F0EEF4',
                         borderRadius: '32px',
-                        width: '550px',
                         minHeight: '375px',
-                    }}>
+                    }}
+                         width={{xs: '100vw', sm: '100vw', md: '500px'}}>
                         <Box p={{xs: 1, sm: 2, md: 3}}>{props.children}</Box>
                     </Box>
                 </Grid>
