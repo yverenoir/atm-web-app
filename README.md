@@ -63,10 +63,14 @@ after each withdraw.
 
 ### ATM behavior
 
-I assume this web app is to mimic an ATM's behavior. The web app does not have the sensor input as a real ATM. This web
-app assumes the user inserts their card at the beginning of the flow and collects the card from the ATM at the end of
-the flow. This behavior is visually accompanied by two screens with timer set on them to trigger the next step of the
-flow.
+I assume this web app is to mimic an ATM's behavior.
+
+1. The web app does not show the denominations of cash to be dispensed to the user. It can be found in the console
+   output in the browser.
+2. The web app does not have the sensor input as a real ATM. This web
+   app assumes the user inserts their card at the beginning of the flow and collects the card from the ATM at the end of
+   the flow. This behavior is visually accompanied by two screens with timer set on them to trigger the next step of the
+   flow.
 
 ## Tests
 
@@ -97,17 +101,22 @@ At the moment most of the texts for buttons and messages are sitting in the sour
 hard to
 find and maintain, also for the purpose of localisation, all content should be extracted.
 
-### E2E test
+### Externalising styling constants
 
-The FE features were manually tested. An E2E test with cypress or playwright to test the entire flow from
-inserting the card to exiting transaction incl. edge cases (e.g. overdraft, insufficient fund in vault) will be
-needed.
+For scaling, styling constants should be moved out to a file to act as the styling single source of truth and make
+responsiveness easier.
 
 ### Responsiveness
 
 The app is optimised for desktop usage. As it is a simulation of a physical ATM machine, mobile
 responsiveness was not prioritised. For a real customer facing banking web app, mobile responsiveness should be the
 first priority.
+
+### E2E test
+
+The FE features were manually tested. An E2E test with cypress or playwright to test the entire flow from
+inserting the card to exiting transaction incl. edge cases (e.g. overdraft, insufficient fund in vault) will be
+needed.
 
 ### Loading states
 
