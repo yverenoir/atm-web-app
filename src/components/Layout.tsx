@@ -20,7 +20,7 @@ function Layout(props: any) {
                         borderRadius: '32px',
                         minHeight: '375px',
                     }}
-                         width={{xs: '100vw', sm: '100vw', md: '500px'}}>
+                         width={{xs: '100vw', sm: '500px'}}>
                         <Box p={{xs: 1, sm: 2, md: 3}}>{props.children}</Box>
                     </Box>
                 </Grid>
